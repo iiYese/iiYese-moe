@@ -12,19 +12,22 @@ pub fn to_url_case(parent: &str, title: &str) -> String {
 }
 
 fn app(cx: Scope) -> Element {
+    let about = Paragraph {
+        title: "About",
+        content: cx.render(rsx!{
+            p { "test" }
+        })
+    };
+
+    let yeet = Paragraph {
+        title: "yeet",
+        content: cx.render(rsx!{
+            p { "lmao" }
+        })
+    };
     cx.render(rsx!{
-        Paragraph {
-            title: "About",
-            content: cx.render(rsx!{
-                p { "test" }
-            })
-        }
-        Paragraph {
-            title: "yeet",
-            content: cx.render(rsx!{
-                p { "lmao" }
-            })
-        }
+        about.render(&cx)
+        yeet.render(&cx)
     })
 }
 

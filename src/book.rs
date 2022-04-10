@@ -1,50 +1,49 @@
-#![allow(non_snake_case)]
 use convert_case::{Casing, Case};
 use dioxus::prelude::*;
 use crate::to_url_case;
 
-#[derive(Props)]
-pub struct ParagraphProp<'a> {
-    title: &'a str,
-    content: Element<'a>,
+pub struct Paragraph<'a> {
+    pub title: &'a str,
+    pub content: Element<'a>,
 }
 
-pub fn Paragraph<'a>(cx: Scope<'a, ParagraphProp<'a>>) -> Element {
-    let link = cx.props.title.to_case(Case::Kebab);
-    cx.render(rsx!{
-        div {
-            id: "{link}",
-            style: "padding-bottom: 3rem;",
-            a { 
-                href: "#{link}", 
-                style: "text-decoration: none; font-size: 1.2rem; color: #333;", 
-                div {
-                    style: "
-                        width: 100%;
-                        height: 20px;
-                        border-bottom: 2px solid #333;
-                        text-align: center
-                    ",
-                    span {
-                        style: "padding: 0 10px;",
-                        "[#]"
+impl<'a> Paragraph<'a> {
+    pub fn render(&self, cx: &Scope<'a>) -> Element<'a> {
+        let link = self.title.to_case(Case::Kebab);
+        let title = self.title;
+        cx.render(rsx!{
+            div {
+                class: "paragraph",
+                id: "{link}",
+                a { 
+                    href: "#{link}", 
+                    div { 
+                        class: "hr-sect", 
+                        span { "{title}" } 
                     }
                 }
+                self.content.as_ref()
             }
-            cx.props.content.as_ref()
-        }
-    })
+        })
+    }
 }
 
-
-struct PageProp<'a> {
+pub struct Page<'a> {
     title: &'a str,
-    content: Vec<ParagraphProp<'a>>,
+    content: Vec<Paragraph<'a>>,
+}
+
+impl<'a> Page<'a> {
+    pub fn render(&self, cx: &Scope<'a>) -> Element<'a> {
+        cx.render(rsx! {
+            self.content.iter().map(|p| p.render(cx))
+        })
+    }
 }
 
 struct Chapter<'a> {
     title: &'a str,
-    pages: Vec<PageProp<'a>>,
+    pages: Vec<Page<'a>>,
 }
 
 struct Book<'a> {

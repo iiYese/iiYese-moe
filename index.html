@@ -7,6 +7,25 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/holiday.css@0.9.8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
+    <style>
+        .hr-sect {
+            display: flex;
+            flex-basis: 100%;
+            align-items: center;
+            color: #333;
+            margin: 8px 0px;
+        }
+        .hr-sect:before,
+        .hr-sect:after {
+            content: "";
+            flex-grow: 1;
+            background: #333;
+            height: 1px;
+            font-size: 0px;
+            line-height: 0px;
+            margin: 0px 1%;
+        }
+    </style>
     <body>
         <div id="main"> </div>
     </body>
