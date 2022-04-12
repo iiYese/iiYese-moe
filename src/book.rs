@@ -13,7 +13,6 @@ pub fn Paragraph<'a>(cx: Scope<'a, ParagraphProp<'a>>) -> Element<'a> {
     let link = cx.props.title.to_case(Case::Kebab);
     cx.render(rsx! {
         div {
-            class: "paragraph",
             id: "{link}",
             a {
                 href: "#{link}",
@@ -29,8 +28,8 @@ pub fn Paragraph<'a>(cx: Scope<'a, ParagraphProp<'a>>) -> Element<'a> {
 
 #[derive(Props)]
 pub struct PageProp<'a> {
-    title: &'a str,
-    children: Element<'a>,
+    pub title: &'a str,
+    pub children: Element<'a>,
 }
 
 impl<'a> PageProp<'a> {
@@ -51,9 +50,9 @@ pub fn Page<'a>(cx: Scope<'a, PageProp<'a>>) -> Element<'a> {
 }
 
 pub struct Chapter<'a> {
-    title: &'a str,
-    decription: &'a str,
-    pages: Vec<PageProp<'a>>,
+    pub title: &'a str,
+    pub description: &'a str,
+    pub pages: Vec<PageProp<'a>>,
 }
 
 #[derive(Props)]
@@ -79,19 +78,22 @@ impl SiteRoute {
     }
 }
 
-fn Book<'a>(cx: Scope<'a, BookProp<'a>>) -> Element<'a> {
-    let book_route = SiteRoute::main(cx.props.title).build();
-    let menu = cx.render(rsx!{
-        ol {
-            id: "menu",
-            li {
-                a {
-                    href: "{book_route}",
-                    "{cx.props.title}"
-                }
-                ol {
-                    cx.props.chapters.iter().map(|chapter| {
-                        let route = SiteRoute::main(cx.props.title)
+impl<'a> BookProp<'a> {
+    fn menu<T>(&'a self, cx: Scope<'a, T>) -> Element<'a> {
+        let book_route = SiteRoute::main(self.title).build();
+        let title = self.title;
+
+        cx.render(rsx!{
+            aside {
+                ul {
+                    li {
+                        a {
+                            href: "{book_route}",
+                            "{title}"
+                        }
+                    }
+                    self.chapters.iter().map(|chapter| {
+                        let route = SiteRoute::main(self.title)
                             .sub(chapter.title)
                             .build();
 
@@ -101,16 +103,89 @@ fn Book<'a>(cx: Scope<'a, BookProp<'a>>) -> Element<'a> {
                                     href: "{route}",
                                     "{chapter.title}"
                                 }
+                                ul {
+                                    chapter.pages.iter().map(|page| {
+                                        let route = SiteRoute::main(self.title)
+                                            .sub(chapter.title)
+                                            .sub(page.title)
+                                            .build();
+
+                                        cx.render(rsx!{
+                                            li {
+                                                a {
+                                                    href: "{route}",
+                                                    "{page.title}"
+                                                }
+                                            }
+                                        })
+                                    })
+                                }
                             }
                         })
                     })
                 }
             }
-        }
-    });
+        })
+    }
 
-    
-    cx.render(rsx! {
-        p {}
-    })
+    fn routes<T>(&'a self, cx: Scope<'a, T>) -> Element<'a> {
+        let book_route = SiteRoute::main(self.title).build();
+        let title = self.title;
+        let description = self.description;
+
+        cx.render(rsx!{
+            Router {
+                Route {
+                    to: "{book_route}",
+                    
+                    self.menu(cx)
+                    
+                    Page {
+                        title: "{title}",
+                        "{description}" 
+                    }
+                }
+                self.chapters.iter().map(|chapter| {
+                    let title = chapter.title;
+                    let description = chapter.description;
+                    let route = SiteRoute::main(self.title)
+                        .sub(chapter.title)
+                        .build();
+
+                    cx.render(rsx!{
+                        Route {
+                            to: "{route}",
+                            
+                            self.menu(cx)
+
+                            Page {
+                                title: "{title}",
+                                "{description}"
+                            }
+                        }
+                        chapter.pages.iter().map(|page| {
+                            let route = SiteRoute::main(self.title)
+                                .sub(chapter.title)
+                                .sub(page.title)
+                                .build();
+
+                            cx.render(rsx!{
+                                Route {
+                                    to: "{route}",
+                                    
+                                    self.menu(cx)
+
+                                    page.render(cx)
+                                }
+                            })
+                        })
+                    })
+                })
+            }
+        })
+    }
+}
+
+pub fn Book<'a>(cx: Scope<'a, BookProp<'a>>) -> Element<'a> {
+    cx.props.routes(cx)
 }

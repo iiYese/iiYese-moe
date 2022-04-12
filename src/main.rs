@@ -20,17 +20,38 @@ struct WebsiteProp<'a> {
 }
 
 fn app(cx: Scope) -> Element {
+    let chapters = vec![
+        Chapter {
+            title: "About",
+            description: "About Rust",
+            pages: vec![
+                PageProp {
+                    title: "About things",
+                    children: cx.render(rsx!(p { "about" }))
+                },
+            ],
+        },
+        Chapter {
+            title: "Book things",
+            description: "Book Rust",
+            pages: vec![
+                PageProp {
+                    title: "Book",
+                    children: cx.render(rsx!(p { "book" }))
+                },
+            ],
+        },
+    ];
     cx.render(rsx! {
-        Page {
-            title: "Dioxus",
-            Paragraph {
-                title: "Yaa",
-                p { "yeet" }
-            }
-
-            Paragraph {
-                title: "Ayy",
-                p{ "lmao" }
+        Book {
+            title: "Rust",
+            description: "Rust is a systems programming language that is used to build software",
+            chapters: chapters
+        }
+        Router {
+            Route {
+                to: "test"
+                p { "test" }
             }
         }
     })
