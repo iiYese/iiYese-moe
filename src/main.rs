@@ -71,9 +71,10 @@ fn Website<'a>(cx: Scope<'a, WebsiteProp<'a>>) -> Element<'a> {
                     }
                 })
             })
+            cx.props.books.iter().map(|book| book.routes(cx))
+            Redirect{ from: "" to: "/about" }
         }
 
-        cx.props.books.iter().map(|book| book.routes(cx))
     })
 }
 

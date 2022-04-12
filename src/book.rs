@@ -118,54 +118,52 @@ impl<'a> BookProp<'a> {
         let description = self.description;
 
         cx.render(rsx!{
-            Router {
-                Route {
-                    to: "{book_route}",
-                    
-                    self.menu(cx)
-                    
-                    Page {
-                        title: "{title}",
-                        "{description}" 
-                    }
+            Route {
+                to: "{book_route}",
+                
+                self.menu(cx)
+                
+                Page {
+                    title: "{title}",
+                    "{description}" 
                 }
-                self.chapters.iter().map(|chapter| {
-                    let title = chapter.title;
-                    let description = chapter.description;
-                    let route = SiteRoute::main(self.title)
-                        .sub(chapter.title)
-                        .build();
+            }
+            self.chapters.iter().map(|chapter| {
+                let title = chapter.title;
+                let description = chapter.description;
+                let route = SiteRoute::main(self.title)
+                    .sub(chapter.title)
+                    .build();
 
-                    cx.render(rsx!{
-                        Route {
-                            to: "{route}",
-                            
-                            self.menu(cx)
+                cx.render(rsx!{
+                    Route {
+                        to: "{route}",
+                        
+                        self.menu(cx)
 
-                            Page {
-                                title: "{title}",
-                                "{description}"
-                            }
+                        Page {
+                            title: "{title}",
+                            "{description}"
                         }
-                        chapter.pages.iter().map(|page| {
-                            let route = SiteRoute::main(self.title)
-                                .sub(chapter.title)
-                                .sub(page.title)
-                                .build();
+                    }
+                    chapter.pages.iter().map(|page| {
+                        let route = SiteRoute::main(self.title)
+                            .sub(chapter.title)
+                            .sub(page.title)
+                            .build();
 
-                            cx.render(rsx!{
-                                Route {
-                                    to: "{route}",
-                                    
-                                    self.menu(cx)
+                        cx.render(rsx!{
+                            Route {
+                                to: "{route}",
+                                
+                                self.menu(cx)
 
-                                    page.render(cx)
-                                }
-                            })
+                                page.render(cx)
+                            }
                         })
                     })
                 })
-            }
+            })
         })
     }
 }
