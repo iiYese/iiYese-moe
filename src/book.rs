@@ -1,5 +1,5 @@
 #![allow(non_snake_case)]
-use crate::to_url_case;
+use crate::SiteRoute;
 use convert_case::{Case, Casing};
 use dioxus::prelude::*;
 
@@ -33,7 +33,7 @@ pub struct PageProp<'a> {
 }
 
 impl<'a> PageProp<'a> {
-    fn render<T>(&'a self, cx: Scope<'a, T>) -> Element {
+    pub fn render<T>(&'a self, cx: Scope<'a, T>) -> Element {
         let title = self.title;
         cx.render(rsx! {
             div {
@@ -57,25 +57,9 @@ pub struct Chapter<'a> {
 
 #[derive(Props)]
 pub struct BookProp<'a> {
-    title: &'a str,
-    description: &'a str,
-    chapters: Vec<Chapter<'a>>,
-}
-
-struct SiteRoute(String);
-
-impl SiteRoute {
-    fn main(s: impl AsRef<str>) -> Self {
-        Self("/".to_string() + &s.as_ref().to_case(Case::Kebab))
-    }
-
-    fn sub(self, s: impl AsRef<str>) -> Self {
-        Self(self.0 + "/" + &s.as_ref().to_case(Case::Kebab))
-    }
-
-    fn build(self) -> String {
-        self.0
-    }
+    pub title: &'a str,
+    pub description: &'a str,
+    pub chapters: Vec<Chapter<'a>>,
 }
 
 impl<'a> BookProp<'a> {
@@ -128,7 +112,7 @@ impl<'a> BookProp<'a> {
         })
     }
 
-    fn routes<T>(&'a self, cx: Scope<'a, T>) -> Element<'a> {
+    pub fn routes<T>(&'a self, cx: Scope<'a, T>) -> Element<'a> {
         let book_route = SiteRoute::main(self.title).build();
         let title = self.title;
         let description = self.description;

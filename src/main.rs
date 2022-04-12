@@ -1,58 +1,91 @@
 mod about;
 mod book;
+mod bike_shed;
 
-use crate::book::*;
+use book::*;
+use about::about;
+use bike_shed::*;
 
 use convert_case::{Case, Casing};
 use dioxus::prelude::*;
 
-pub fn to_url_case(parent: &str, title: &str) -> String {
-    format!("{}/{}", parent, title).to_case(Case::Kebab)
+struct SiteRoute(String);
+
+impl SiteRoute {
+    fn main(s: impl AsRef<str>) -> Self {
+        Self("/".to_string() + &s.as_ref().to_case(Case::Kebab))
+    }
+
+    fn sub(self, s: impl AsRef<str>) -> Self {
+        Self(self.0 + "/" + &s.as_ref().to_case(Case::Kebab))
+    }
+
+    fn build(self) -> String {
+        self.0
+    }
 }
 
-enum Section<'a> {
-    Page(PageProp<'a>),
-    Book(BookProp<'a>),
-}
-
+#[derive(Props)]
 struct WebsiteProp<'a> {
-    sections: Vec<Section<'a>>,
+    simple_pages: Vec<PageProp<'a>>,
+    books: Vec<BookProp<'a>>,
+}
+
+#[allow(non_snake_case)]
+fn Website<'a>(cx: Scope<'a, WebsiteProp<'a>>) -> Element<'a> {
+    cx.render(rsx! {
+        nav {
+            ul {
+                cx.props.simple_pages.iter().map(|page| {
+                    let route = SiteRoute::main(page.title).build();
+                    cx.render(rsx! {
+                        li {
+                            a {
+                                href: "{route}",
+                                "{page.title}"
+                            }
+                        }
+                    })
+                })
+                cx.props.books.iter().map(|book| {
+                    let route = SiteRoute::main(book.title).build();
+                    cx.render(rsx! {
+                        li {
+                            a {
+                                href: "{route}",
+                                "{book.title}"
+                            }
+                        }
+                    })
+                })
+            }
+        }
+
+        Router {
+            cx.props.simple_pages.iter().map(|page| {
+                let route = SiteRoute::main(page.title).build();
+                cx.render(rsx! {
+                    Route {
+                        to: "{route}",
+                        page.render(cx)
+                    }
+                })
+            })
+        }
+
+        cx.props.books.iter().map(|book| book.routes(cx))
+    })
 }
 
 fn app(cx: Scope) -> Element {
-    let chapters = vec![
-        Chapter {
-            title: "About",
-            description: "About Rust",
-            pages: vec![
-                PageProp {
-                    title: "About things",
-                    children: cx.render(rsx!(p { "about" }))
-                },
-            ],
-        },
-        Chapter {
-            title: "Book things",
-            description: "Book Rust",
-            pages: vec![
-                PageProp {
-                    title: "Book",
-                    children: cx.render(rsx!(p { "book" }))
-                },
-            ],
-        },
-    ];
     cx.render(rsx! {
-        Book {
-            title: "Rust",
-            description: "Rust is a systems programming language that is used to build software",
-            chapters: chapters
-        }
-        Router {
-            Route {
-                to: "test"
-                p { "test" }
-            }
+        Website {
+            simple_pages: vec![
+                about(cx)
+            ],
+            books: vec![
+                bike_shed()
+            ]
         }
     })
 }
