@@ -6,6 +6,7 @@
         <meta charset="utf-8">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/holiday.css@0.9.8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     </head>
     <style>
         .hr-sect {
@@ -35,14 +36,21 @@
             background: white;
         }
 
+        body {
+            overflow-x: scroll;
+            margin-left: 16rem;
+            width: 48rem;
+        }
+
         aside {
             position: fixed;
-            left: 0;
             top: 0;
+            bottom: 0;
+            left: 0;
             display: inline-block;
             vertical-align: top;
             height: 100%;
-            width: 15rem;
+            width: 14rem;
             overflow: auto;
             text-decoration: none;
             background: #111;
@@ -93,6 +101,10 @@
         .htable td, .htable th {
             border-style: hidden;
         }
+        .active {
+            color: #00ffc8;
+        }
+
     </style>
     <body>
         <div id="main"> </div>

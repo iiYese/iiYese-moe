@@ -16,65 +16,55 @@ pub fn about(cx: Scope) -> PageProp {
                 title: "Technologies",
                 table {
                     class: "htable",
-                    thead {
-                        tr {
-                            th { h3 { "Rust"} }
-                            td { 
-                                code { "Tokio" }
-                                code { "Rocket" }
-                                code { "Serde" }
-                                code { "Desil" }
-                                code { "Dioxus" }
-                                code { "WGPU" } 
-                                code { "Bevy" } 
-                            }
+                    tr {
+                        th { h3 { "Rust"} }
+                        td { 
+                            code { "Tokio" }
+                            code { "Rocket" }
+                            code { "Serde" }
+                            code { "Desil" }
+                            code { "Dioxus" }
+                            code { "WGPU" } 
+                            code { "Bevy" } 
                         }
                     }
-                    thead {
-                        tr {
-                            th { h3 { "Python" } }
-                            td { 
-                                code { "Fast API" }
-                                code { "Django" }
-                            }
+                    tr {
+                        th { h3 { "Python" } }
+                        td { 
+                            code { "Fast API" }
+                            code { "Django" }
                         }
                     }
-                    thead {
-                        tr {
-                            th { h3 { "C++" } }
-                            td {
-                                code { "SFML" }
-                                code { "Boost" } 
-                            }
+                    tr {
+                        th { h3 { "C++" } }
+                        td {
+                            code { "SFML" }
+                            code { "Boost" } 
                         }
                     }
-                    thead {
-                        tr {
-                            th { h3 { "Clojure" } }
-                            td {
-                                code { "reagent" }
-                                code { "shadowcljs" } 
-                            }
+                    tr {
+                        th { h3 { "Clojure" } }
+                        td {
+                            code { "Reagent" }
+                            code { "Reitit" }
+                            code { "Shadow-cljs" } 
                         }
                     }
-                    thead {
-                        tr {
-                            th { h3 { "C" } }
-                            td {
-                                code { "glibc" }
-                            }
+                    tr {
+                        th { h3 { "C" } }
+                        td {
+                            code { "glibc" }
                         }
                     }
-                    thead {
-                        tr {
-                            th { h3 { "More" } }
-                            td {
-                                b { "WASM" }
-                                b { "Haskell" }
-                                b { "Java" }
-                                b { "C#" }
-                                b { "PrimeReact" }
-                            }
+                    tr {
+                        th { h3 { "More" } }
+                        td {
+                            b { "WASM" }
+                            b { "FFI" }
+                            b { "Haskell" }
+                            b { "Java" }
+                            b { "C#" }
+                            b { "PrimeReact" }
                         }
                     }
                 }
@@ -84,7 +74,24 @@ pub fn about(cx: Scope) -> PageProp {
                 title: "Projects",
 
                 h3 { "OMFG - Open Modding Framework (for) Games" } 
-                br {}
+                p { 
+                    "OMFG is a companion CLI for games that rely heavily on 
+                    community created content to help them implement 
+                    in editor modding tools to let users curate
+                    the content they generate more easily." 
+                }
+                p { 
+                    "Most games serialize their level data to text formats.
+                    OMFG leverages this to achieve language agnosticism." 
+                }
+                p { 
+                    "When I looked at different text serialization formats 
+                    I noticed that they tend to come in families.
+                    This was used to achieve serialization format agnosticism." 
+                }
+                p {
+                    "OMFG is written using the Rust ecosystem."
+                }
             }
         })
     }

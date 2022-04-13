@@ -28,7 +28,7 @@ impl SiteRoute {
 #[derive(Props)]
 struct WebsiteProp<'a> {
     simple_pages: Vec<PageProp<'a>>,
-    books: Vec<BookProp<'a>>,
+    books: Vec<Book<'a>>,
 }
 
 #[allow(non_snake_case)]
@@ -74,7 +74,6 @@ fn Website<'a>(cx: Scope<'a, WebsiteProp<'a>>) -> Element<'a> {
             cx.props.books.iter().map(|book| book.routes(cx))
             Redirect{ from: "" to: "/about" }
         }
-
     })
 }
 
@@ -85,7 +84,7 @@ fn app(cx: Scope) -> Element {
                 about(cx)
             ],
             books: vec![
-                bike_shed()
+                bike_shed(cx)
             ]
         }
     })

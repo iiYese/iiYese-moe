@@ -21,10 +21,7 @@ pub fn Paragraph<'a>(cx: Scope<'a, ParagraphProp<'a>>) -> Element<'a> {
                     span { "{cx.props.title}" }
                 }
             }
-            br{}
             cx.props.children.as_ref()
-            br{}
-            br{}
             br{}
         }
     })
@@ -59,19 +56,20 @@ pub struct Chapter<'a> {
     pub pages: Vec<PageProp<'a>>,
 }
 
-#[derive(Props)]
-pub struct BookProp<'a> {
+pub struct Book<'a> {
     pub title: &'a str,
     pub description: &'a str,
     pub chapters: Vec<Chapter<'a>>,
 }
 
-impl<'a> BookProp<'a> {
+impl<'a> Book<'a> {
     fn menu<T>(&'a self, cx: Scope<'a, T>) -> Element<'a> {
         let book_route = SiteRoute::main(self.title).build();
         let title = self.title;
 
         cx.render(rsx!{
+            div {
+                class: "menu",
             aside {
                 ul {
                     li {
@@ -112,6 +110,7 @@ impl<'a> BookProp<'a> {
                         })
                     })
                 }
+            }
             }
         })
     }
@@ -170,8 +169,4 @@ impl<'a> BookProp<'a> {
             })
         })
     }
-}
-
-pub fn Book<'a>(cx: Scope<'a, BookProp<'a>>) -> Element<'a> {
-    cx.props.routes(cx)
 }
