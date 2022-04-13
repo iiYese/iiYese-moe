@@ -24,23 +24,17 @@
             line-height: 0px;
             margin: 0px 1%;
         }
-        .hr-sect:before {
-            background: linear-gradient(to left, #787878, #222);
+        .hr-sect:before, .hr-sect:after {
+            background: #787878;
         }
 
-        .hr-sect:after {
-            background: linear-gradient(to right, #787878, #222);
-        }
         .hr-sect:hover {
             color: white;
         }
-        .hr-sect:hover::after {
-            background: linear-gradient(to right, white, #222);
+        .hr-sect:hover::after, .hr-sect:hover::before {
+            background: white;
         }
 
-        .hr-sect:hover::before {
-            background: linear-gradient(to left, white, #222);
-        }
         aside {
             position: fixed;
             left: 0;
@@ -87,6 +81,17 @@
 
         code {
             color: #008c6e;
+        }
+
+        .htable code, .htable b {
+            margin: 0.5rem;
+        }
+        .htable {
+            display: table;
+            margin: 0 auto;
+        }
+        .htable td, .htable th {
+            border-style: hidden;
         }
     </style>
     <body>

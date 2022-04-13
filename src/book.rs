@@ -21,7 +21,11 @@ pub fn Paragraph<'a>(cx: Scope<'a, ParagraphProp<'a>>) -> Element<'a> {
                     span { "{cx.props.title}" }
                 }
             }
+            br{}
             cx.props.children.as_ref()
+            br{}
+            br{}
+            br{}
         }
     })
 }
