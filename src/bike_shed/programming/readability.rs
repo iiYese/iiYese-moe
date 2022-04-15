@@ -17,44 +17,49 @@ pub fn readability<T>(cx: Scope<'_, T>) -> PageProp<'_> {
                 "So here is what I've thought about."
             }
             br{}
+            br{}
+            br{}
 
             Paragraph {
                 title: "My rules",
                 p {
                     "Good naming should be a given and is also another topic on its own.
-                    I am going to assume its presence as it's not the fosus of this post"
+                    I am going to assume its presence as it's not the fosus of this post."
                 }
-                ul {
-                    li {
-                        "When reading through the code path of any unit of code 
-                        cognitive load over time should be as flat as possible." 
-                        ul {
-                            br{}
-                            
-                            li {  
-                                r#"With "unit" being a collection of code that we can 
-                                considered at once. For example a function or module."#
-                            }
-                            li {  
-                                r#"Units can be and are made up of other units."#
-                            }
+                blockquote {
+                    "When reading through the code path of any unit of code 
+                    cognitive load over time should be as flat as possible." 
+                }
+                figure {
+                    class: "smol",
+                    img { src: "/static/good.png" }
+                    img { src: "/static/bad.png" }
+                    ul {
+                        li {  
+                            r#"With "unit" being a collection of code that we can 
+                            considered at once. For example a function or module."#
+                        }
+                        li {  
+                            r#"Units can be and are made up of other units."#
                         }
                     }
-                    br {}
-                    
-                    li {
-                        "Cognitive load for the code path of any unit of code 
-                        should be as low as possible for its intended audience."
-                    }
+                }
+                blockquote {
+                    "Cognitive load for the code path of any unit of code 
+                    should be as low as possible for its intended audience."
+                }
+                figure {
+                    class: "smol",
+                    img { src: "/static/okaybetter.png" }
                 }
             }
             Paragraph {
                 title: "A problem",
                 p {
                     r#"How I've defined a "unit" so far has a problem. Mainly that 
-                    this definition alone is still subject to being subjective.
-                    What is to stop people unerasonably splitting things appart
-                    or keeping things together? How do we partition "units"?"#
+                    this definition alone is still a little ambiguous and unclear.
+                    What does one think about when trying to avoid 
+                    bad code partitioning decisions?"#
                 }
                 p{
                     "If you are an experienced programmer you most likely 
@@ -65,16 +70,17 @@ pub fn readability<T>(cx: Scope<'_, T>) -> PageProp<'_> {
                     produce good partitioning?"
                 }
                 p {
-                    "Here is my further thinking."
+                    "Here are my further thoughts."
                 }
             }
             Paragraph {
                 title: "A solution",
-                p {
+                blockquote {
                     "Code should be partitioned with the intent to create assumptions
                     that you can comfortably make. These assumptions should help you 
                     think about the thing that you actually want to think about."
                 }
+
                 p {
                     "Now if you partition too much you are juggling assumptions.
                     When trying to think about the thing you're trying to think about
@@ -86,12 +92,15 @@ pub fn readability<T>(cx: Scope<'_, T>) -> PageProp<'_> {
                     thinking about" b { " how the machine " } "or" 
                     b { " your tools " } "think about it."
                 }
+                br {}
+                br {}
+
                 p {
                     "If you are as pedantic as me you will have noticed that this is still
                     context dependent. This is by design."
                 }
                 p {
-                    "After a lot of consideration I've come to the conclusion that
+                    "After a lot of deliberation I've come to the conclusion that
                     good definitions for topics like this should be well defined enough
                     as to allow people to communicate more effectively but should still
                     selectively allow for a necessary drgree of interpretation."
@@ -112,7 +121,7 @@ pub fn readability<T>(cx: Scope<'_, T>) -> PageProp<'_> {
             Paragraph {
                 title: "Anothe problem",
                 p {
-                    r#"How do you define or select an appropriate "intended audience"?
+                    r#"How does one define or select an "intended audience"?
                     This is something I have not been able to answer and am still
                     unhappy about."#
                 }

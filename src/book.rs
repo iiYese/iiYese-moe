@@ -23,6 +23,8 @@ pub fn Paragraph<'a>(cx: Scope<'a, ParagraphProp<'a>>) -> Element<'a> {
             }
             cx.props.children.as_ref()
             br{}
+            br{}
+            br{}
         }
     })
 }
@@ -70,47 +72,47 @@ impl<'a> Book<'a> {
         cx.render(rsx!{
             div {
                 class: "menu",
-            aside {
-                ul {
-                    li {
-                        a {
-                            href: "{book_route}",
-                            "{title}"
-                        }
-                    }
-                    self.chapters.iter().map(|chapter| {
-                        let route = SiteRoute::main(self.title)
-                            .sub(chapter.title)
-                            .build();
-
-                        cx.render(rsx!{
-                            li {
-                                a {
-                                    href: "{route}",
-                                    "{chapter.title}"
-                                }
-                                ul {
-                                    chapter.pages.iter().map(|page| {
-                                        let route = SiteRoute::main(self.title)
-                                            .sub(chapter.title)
-                                            .sub(page.title)
-                                            .build();
-
-                                        cx.render(rsx!{
-                                            li {
-                                                a {
-                                                    href: "{route}",
-                                                    "{page.title}"
-                                                }
-                                            }
-                                        })
-                                    })
-                                }
+                aside {
+                    ul {
+                        li {
+                            a {
+                                href: "{book_route}",
+                                "{title}"
                             }
+                        }
+                        self.chapters.iter().map(|chapter| {
+                            let route = SiteRoute::main(self.title)
+                                .sub(chapter.title)
+                                .build();
+
+                            cx.render(rsx!{
+                                li {
+                                    a {
+                                        href: "{route}",
+                                        "{chapter.title}"
+                                    }
+                                    ul {
+                                        chapter.pages.iter().map(|page| {
+                                            let route = SiteRoute::main(self.title)
+                                                .sub(chapter.title)
+                                                .sub(page.title)
+                                                .build();
+
+                                            cx.render(rsx!{
+                                                li {
+                                                    a {
+                                                        href: "{route}",
+                                                        "{page.title}"
+                                                    }
+                                                }
+                                            })
+                                        })
+                                    }
+                                }
+                            })
                         })
-                    })
+                    }
                 }
-            }
             }
         })
     }
@@ -123,7 +125,6 @@ impl<'a> Book<'a> {
         cx.render(rsx!{
             Route {
                 to: "{book_route}",
-                
                 self.menu(cx)
                 
                 Page {
@@ -141,7 +142,6 @@ impl<'a> Book<'a> {
                 cx.render(rsx!{
                     Route {
                         to: "{route}",
-                        
                         self.menu(cx)
 
                         Page {
@@ -158,7 +158,6 @@ impl<'a> Book<'a> {
                         cx.render(rsx!{
                             Route {
                                 to: "{route}",
-                                
                                 self.menu(cx)
 
                                 page.render(cx)
