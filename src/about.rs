@@ -5,11 +5,19 @@ pub fn about(cx: Scope) -> PageProp {
     PageProp {
         title: "About",
         children: cx.render(rsx! {
-            p { "I am a software developer. I primarily work with Native Applications,
+            div {
+                class: "info-tray",
+                ul {
+                    li {
+                        a { href: "https://github.com/iiYese", img { src: "/static/github.png" } }
+                    }
+                }
+            }
+            p { 
+                "I am a software developer. I primarily work with Native Applications,
                 Systems Programs, UX, Games and Backend Web.
                 Here are some of the things I've worked with, done or am doing."
             }
-
             br{}
             
             Paragraph {

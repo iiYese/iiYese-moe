@@ -97,33 +97,30 @@ pub fn readability<T>(cx: Scope<'_, T>) -> PageProp<'_> {
 
                 p {
                     "If you are as pedantic as me you will have noticed that this is still
-                    context dependent. This is by design."
-                }
-                p {
-                    "After a lot of deliberation I've come to the conclusion that
-                    good definitions for topics like this should be well defined enough
-                    as to allow people to communicate more effectively but should still
-                    selectively allow for a necessary drgree of interpretation."
+                    context dependent. After a lot of deliberation I've come to the conclusion 
+                    that this should deliberately be by design."
                 }
                 p {
                     "It is an impossible task for me or anyone else trying to produce
                     ways of thinking about these topics to be exhaustive. Furthermore
                     is that something that should even be done? I clearly can't do it 
-                    because I don't have all the variables and even trying to would 
-                    introduce variables that not everyone cares about."
+                    because I don't have all the variables one might encounter. 
+                    Even trying to would incorporate some of them would introduce 
+                    variables into this process that not everyone cares about."
                 }
                 p {
-                    "People do have these variabels and they are the readers. 
-                    The people who might try employ this way of thinking. Each reader
-                    also has only the variables they care about."
+                    "Individual people on a case by case basis trying to employ this 
+                    way of thinking do have these variables and they only the variables 
+                    that" b { " they care about. " } "So I think continuing this tangent 
+                    is a task better left to the reader."
                 }
             }
             Paragraph {
                 title: "Anothe problem",
                 p {
-                    r#"How does one define or select an "intended audience"?
-                    This is something I have not been able to answer and am still
-                    unhappy about."#
+                    r#"How does one define or select the appropriate "intended audience"? 
+                    In contrary to the last point this is something that I think can be worked on.
+                    I have not been able to come to something I am happy with so far."#
                 }
             }
         })

@@ -70,48 +70,45 @@ impl<'a> Book<'a> {
         let title = self.title;
 
         cx.render(rsx!{
-            div {
-                class: "menu",
-                aside {
-                    ul {
-                        li {
-                            a {
-                                href: "{book_route}",
-                                "{title}"
-                            }
+            aside {
+                ul {
+                    li {
+                        a {
+                            href: "{book_route}",
+                            "{title}"
                         }
-                        self.chapters.iter().map(|chapter| {
-                            let route = SiteRoute::main(self.title)
-                                .sub(chapter.title)
-                                .build();
-
-                            cx.render(rsx!{
-                                li {
-                                    a {
-                                        href: "{route}",
-                                        "{chapter.title}"
-                                    }
-                                    ul {
-                                        chapter.pages.iter().map(|page| {
-                                            let route = SiteRoute::main(self.title)
-                                                .sub(chapter.title)
-                                                .sub(page.title)
-                                                .build();
-
-                                            cx.render(rsx!{
-                                                li {
-                                                    a {
-                                                        href: "{route}",
-                                                        "{page.title}"
-                                                    }
-                                                }
-                                            })
-                                        })
-                                    }
-                                }
-                            })
-                        })
                     }
+                    self.chapters.iter().map(|chapter| {
+                        let route = SiteRoute::main(self.title)
+                            .sub(chapter.title)
+                            .build();
+
+                        cx.render(rsx!{
+                            li {
+                                a {
+                                    href: "{route}",
+                                    "{chapter.title}"
+                                }
+                                ul {
+                                    chapter.pages.iter().map(|page| {
+                                        let route = SiteRoute::main(self.title)
+                                            .sub(chapter.title)
+                                            .sub(page.title)
+                                            .build();
+
+                                        cx.render(rsx!{
+                                            li {
+                                                a {
+                                                    href: "{route}",
+                                                    "{page.title}"
+                                                }
+                                            }
+                                        })
+                                    })
+                                }
+                            }
+                        })
+                    })
                 }
             }
         })
