@@ -4,7 +4,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/holiday.css@0.9.8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Trunk configuration stuff -->    
-        <script type="module">import init from '/index-7c3ce562f476c180.js';init('/index-7c3ce562f476c180_bg.wasm');</script>    
+        <script type="module">import init from '/index-bc7e1c02fb1e8294.js';init('/index-bc7e1c02fb1e8294_bg.wasm');</script>    
         
     <style>
         .hr-sect {
@@ -36,20 +36,6 @@
             margin-left: 20rem;
         }
 
-        aside {
-            position: fixed;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            display: inline-block;
-            vertical-align: top;
-            height: 100%;
-            width: 16rem;
-            overflow: auto;
-            text-decoration: none;
-            background: #111;
-        }
-
         nav ul li a,
         nav li a:visited, 
         nav li a:hover, 
@@ -63,18 +49,44 @@
         nav li a:hover {
             color: white;
         }
+        
+        aside {
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: inline-block;
+            vertical-align: top;
+            height: 100%;
+            width: 16rem;
+            overflow: auto;
+            text-decoration: none;
+            background: #111;
+        }
 
         aside li a, 
         aside li a:visited, 
         aside li a:hover, 
         aside li a:focus, 
         aside li a:active { 
-            text-decoration: none;
             font-weight: bold;
             color: #9999;
         }
         aside li a:hover {
             color: white;
+        }
+
+        .info-tray { 
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        .info-tray li { 
+            list-style-type: none;
+            padding: 0.3rem;
+        }
+        .info-tray img {
+            width: 50%;
+            height: 50%;
         }
 
         h1, h2, h3 {
@@ -105,8 +117,8 @@
         }
 
     </style>
-<link rel="preload" href="/index-7c3ce562f476c180_bg.wasm" as="fetch" type="application/wasm" crossorigin="">
-<link rel="modulepreload" href="/index-7c3ce562f476c180.js"></head>
+<link rel="preload" href="/index-bc7e1c02fb1e8294_bg.wasm" as="fetch" type="application/wasm" crossorigin="">
+<link rel="modulepreload" href="/index-bc7e1c02fb1e8294.js"></head>
     
     <body>
         <div id="main"> </div>
